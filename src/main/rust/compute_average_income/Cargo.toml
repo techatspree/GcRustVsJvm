@@ -1,0 +1,10 @@
+[package]
+name = "compute_average_income"
+version = "0.1.0"
+authors = ["Torsten Fink <torsten.fink@akquinet.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.6.0"

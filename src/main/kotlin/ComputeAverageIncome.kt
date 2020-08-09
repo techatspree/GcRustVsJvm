@@ -7,7 +7,7 @@ data class Employee(val firstName: String, val lastName: String, val address: Ad
 class EmployeeServices {
 
     companion object {
-        private const val numberOfAllEmployees = 10000000L
+        private const val numberOfAllEmployees = 1000000L
         private val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 
         private fun lookupAllEmployees(): Sequence<Employee> {
