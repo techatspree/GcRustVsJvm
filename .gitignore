@@ -1,2 +1,4 @@
 /build/
 /.gradle/
+/src/main/rust/compute_average_income/Cargo.lock
+/src/main/rust/compute_average_income/target
