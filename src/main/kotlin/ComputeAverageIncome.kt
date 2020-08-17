@@ -34,11 +34,11 @@ class EmployeeServices {
 
         fun computeAverageIncomeOfAllEmployees(lookupEmployees : () -> Sequence<Employee>): Double {
             val (nrOfEmployees, sumOfSalaries) = lookupEmployees()
-                .fold(Pair(0L, 0.0),
+                .fold(Pair(0L, 0L),
                     { (counter, sum), employee ->
                         Pair(counter + 1, sum + employee.salary)
                     })
-            return sumOfSalaries / nrOfEmployees
+            return sumOfSalaries.toDouble() / nrOfEmployees.toDouble()
         }
     }
 }
