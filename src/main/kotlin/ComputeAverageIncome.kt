@@ -1,3 +1,4 @@
+import EmployeeServices.Companion.lookupAllEmployees
 import kotlin.system.measureTimeMillis
 
 data class Address(val street: String, val postalCode: String, val city: String, val country: String)
@@ -7,10 +8,9 @@ data class Employee(val firstName: String, val lastName: String, val address: Ad
 class EmployeeServices {
 
     companion object {
-        private const val numberOfAllEmployees = 1000000L
         private val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 
-        public fun lookupAllEmployees(): Sequence<Employee> {
+        fun lookupAllEmployees(numberOfAllEmployees : Long): Sequence<Employee> {
             return (1L..numberOfAllEmployees)
                 .asSequence()
                 .map { createRandomEmployee() }
@@ -32,8 +32,8 @@ class EmployeeServices {
                 .joinToString("")
 
 
-        fun computeAverageIncomeOfAllEmployees(lookupEmployees : () -> Sequence<Employee>): Double {
-            val (nrOfEmployees, sumOfSalaries) = lookupEmployees()
+        fun computeAverageIncomeOfAllEmployees(employees : Sequence<Employee>): Double {
+            val (nrOfEmployees, sumOfSalaries) = employees
                 .fold(Pair(0L, 0L),
                     { (counter, sum), employee ->
                         Pair(counter + 1, sum + employee.salary)
@@ -44,9 +44,12 @@ class EmployeeServices {
 }
 
 fun main() {
-    val timeNeeded = measureTimeMillis {
-        EmployeeServices.computeAverageIncomeOfAllEmployees(EmployeeServices.Companion::lookupAllEmployees)
-        Runtime.getRuntime().gc()
+    val nrsOfEmployees = listOf(1000L, 10000L, 100000L)
+    nrsOfEmployees.forEach { nr : Long ->
+        val timeNeeded = measureTimeMillis {
+            EmployeeServices.computeAverageIncomeOfAllEmployees(lookupAllEmployees(nr))
+            Runtime.getRuntime().gc()
+        }
+        println("timeNeeded = $timeNeeded ms")
     }
-    println("timeNeeded = $timeNeeded ms")
 }
