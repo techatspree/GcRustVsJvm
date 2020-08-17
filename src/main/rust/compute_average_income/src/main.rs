@@ -38,20 +38,19 @@ fn create_random_employee(char_pool: &Vec<char>) -> Employee {
     };
 }
 
-fn lookup_all_employees(number_of_all_employees: i64, char_pool: &Vec<char>) -> Vec<Employee> {
+fn lookup_all_employees<'a>(number_of_all_employees: i64, char_pool: &'a Vec<char>)
+    -> impl Iterator<Item=Employee> + 'a {
     return
         (0..number_of_all_employees)
-            .map(|n| { return create_random_employee(char_pool); })
-            .collect();
+            .map(move |_| { return create_random_employee(char_pool); })
+            .into_iter();
 }
 
 fn main() {
     let char_pool = ('a'..'z').collect::<Vec<_>>();
 
-    println!("random string: {:#?}", create_random_string_of_80_chars(&char_pool));
-    let employee = create_random_employee(&char_pool);
-    dbg!(employee);
-    //println!("{:#?}", employee)
     let employees = lookup_all_employees(5, &char_pool);
-    dbg!(employees);
+    for empl in employees {
+        dbg!(empl);
+    }
 }

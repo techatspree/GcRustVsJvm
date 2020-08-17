@@ -10,7 +10,7 @@ class EmployeeServices {
         private const val numberOfAllEmployees = 1000000L
         private val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 
-        private fun lookupAllEmployees(): Sequence<Employee> {
+        public fun lookupAllEmployees(): Sequence<Employee> {
             return (1L..numberOfAllEmployees)
                 .asSequence()
                 .map { createRandomEmployee() }
@@ -32,8 +32,8 @@ class EmployeeServices {
                 .joinToString("")
 
 
-        fun computeAverageIncomeOfAllEmployees(): Double {
-            val (nrOfEmployees, sumOfSalaries) = lookupAllEmployees()
+        fun computeAverageIncomeOfAllEmployees(lookupEmployees : () -> Sequence<Employee>): Double {
+            val (nrOfEmployees, sumOfSalaries) = lookupEmployees()
                 .fold(Pair(0L, 0.0),
                     { (counter, sum), employee ->
                         Pair(counter + 1, sum + employee.salary)
@@ -45,8 +45,8 @@ class EmployeeServices {
 
 fun main() {
     val timeNeeded = measureTimeMillis {
-        EmployeeServices.computeAverageIncomeOfAllEmployees()
+        EmployeeServices.computeAverageIncomeOfAllEmployees(EmployeeServices.Companion::lookupAllEmployees)
         Runtime.getRuntime().gc()
     }
-    println("timeNeeded = $timeNeeded")
+    println("timeNeeded = $timeNeeded ms")
 }
