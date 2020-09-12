@@ -19,3 +19,8 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+task computeAverageIncome(type: JavaExec) {
+    classpath sourceSets.main.runtimeClasspath
+    main = "ComputeAverageIncomeKt"
+}
