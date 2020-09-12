@@ -60,7 +60,7 @@ fn compute_average_income_of_all_employees(employees: impl Iterator<Item=Employe
 fn main() {
     let char_pool = ('a'..'z').collect::<Vec<_>>();
 
-    let nrs_of_employees = [1000u64, 10000, 100000];
+    let nrs_of_employees = [1000u64, 10000, 100000, 1000000];
     for nr_of_employees in &nrs_of_employees {
         let start_time = Instant::now();
         let average = compute_average_income_of_all_employees(lookup_all_employees(

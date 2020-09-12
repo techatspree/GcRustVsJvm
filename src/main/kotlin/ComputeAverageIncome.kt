@@ -44,7 +44,7 @@ class EmployeeServices {
 }
 
 fun main() {
-    val nrsOfEmployees = listOf(1000L, 10000L, 100000L)
+    val nrsOfEmployees = listOf(1000L, 10000L, 100000L, 1000000L)
     nrsOfEmployees.forEach { nr : Long ->
         val timeNeeded = measureTimeMillis {
             EmployeeServices.computeAverageIncomeOfAllEmployees(lookupAllEmployees(nr))
