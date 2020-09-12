@@ -1,4 +1,5 @@
 import EmployeeServices.Companion.lookupAllEmployees
+import kotlin.random.Random.Default.nextInt
 import kotlin.system.measureTimeMillis
 
 data class Address(val street: String, val postalCode: String, val city: String, val country: String)
@@ -27,7 +28,7 @@ class EmployeeServices {
 
         private fun createRandomStringOf80Chars() =
             (1..80)
-                .map { kotlin.random.Random.nextInt(0, charPool.size) }
+                .map { nextInt(0, charPool.size) }
                 .map(charPool::get)
                 .joinToString("")
 
