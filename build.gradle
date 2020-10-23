@@ -24,3 +24,5 @@ task computeAverageIncome(type: JavaExec) {
     classpath sourceSets.main.runtimeClasspath
     main = "ComputeAverageIncomeKt"
 }
+
+

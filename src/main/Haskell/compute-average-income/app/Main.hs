@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import ComputeAverageIncome
 
 main :: IO ()
-main = someFunc
+main = computeAverageIncomeOfAllEmployees
