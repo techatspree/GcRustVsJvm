@@ -2,3 +2,4 @@
 /.gradle/
 /src/main/rust/compute_average_income/Cargo.lock
 /src/main/rust/compute_average_income/target
+/src/main/Haskell/compute-average-income/stack.yaml.lock
