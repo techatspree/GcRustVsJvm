@@ -71,5 +71,8 @@ computeAverageIncome employees =
   in
     (fromIntegral sumOfAllSalaries) / (fromIntegral nrEmployees)
 
-computeAverageIncomeOfAllEmployees :: IO ()
-computeAverageIncomeOfAllEmployees = putStrLn "someFunc"
+computeAverageIncomeOfAllEmployees :: Int -> IO ()
+computeAverageIncomeOfAllEmployees numberOfAllEmployees = do
+  employees <- lookupAllEmployees numberOfAllEmployees
+  let average = computeAverageIncome employees
+  putStrLn ("average: " ++ (show average))
