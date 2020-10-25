@@ -38,3 +38,9 @@ task computeAverageIncomeRust(type: Exec) {
     workingDir "./src/main/Rust/compute_average_income"
     commandLine "cargo", "run", "--release", "--package", "compute_average_income",  "--bin", "compute_average_income"
 }
+
+task computeAverageIncome {
+    dependsOn "computeAverageIncomeRust"
+    dependsOn "computeAverageIncomeHaskell"
+    dependsOn "computeAverageIncomeKotlin"
+}
