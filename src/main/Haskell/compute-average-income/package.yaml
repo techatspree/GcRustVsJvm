@@ -36,6 +36,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - compute-average-income
+    - criterion
 
 tests:
   compute-average-income-test:
