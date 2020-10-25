@@ -3,9 +3,11 @@ module ComputeAverageIncome
     , createRandomStringOf80Chars
     , createRandomAddress
     , createRandomEmployee
+    , lookupAllEmployees
     ) where
 
 import System.Random
+import Control.Monad
 
 data Address = Address
   { street:: String
@@ -53,6 +55,10 @@ createRandomEmployee = do
     , address = addressV
     , salary = salaryV
 }
+
+lookupAllEmployees :: Int -> IO [Employee]
+lookupAllEmployees numberOfAllEmployees =
+  replicateM numberOfAllEmployees createRandomEmployee
 
 
 computeAverageIncomeOfAllEmployees :: IO ()

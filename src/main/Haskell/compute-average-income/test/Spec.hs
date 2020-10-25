@@ -19,7 +19,11 @@ prop_createRandomEmployee = monadicIO $ do
   employee2 <- run createRandomEmployee
   assert (employee1 /= employee2)
 
-
+prop_lookupAllEmployees :: Property
+prop_lookupAllEmployees = monadicIO $ do
+  let nrOfEmployees = 10
+  employees <- run $ lookupAllEmployees nrOfEmployees
+  assert ((length employees) == nrOfEmployees)
 
 main :: IO ()
 main = do
@@ -27,4 +31,5 @@ main = do
   quickCheck prop_createRandomStringOf80Chars
   quickCheck prop_createRandomAddress
   quickCheck prop_createRandomEmployee
+  quickCheck prop_lookupAllEmployees
   putStrLn "Tests done"
