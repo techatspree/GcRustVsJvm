@@ -20,9 +20,21 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-task computeAverageIncome(type: JavaExec) {
+task computeAverageIncomeKotlin(type: JavaExec) {
     classpath sourceSets.main.runtimeClasspath
     main = "ComputeAverageIncomeKt"
 }
 
+// Stack must be installed and the executable must be in the path
+// https://docs.haskellstack.org/en/stable/README/
+task computeAverageIncomeHaskell(type: Exec) {
+    workingDir "./src/main/Haskell/compute-average-income"
+    commandLine "stack", "run"
+}
 
+// Rust must be installed using rustup
+// https://www.rust-lang.org
+task computeAverageIncomeRust(type: Exec) {
+    workingDir "./src/main/Rust/compute_average_income"
+    commandLine "cargo", "run", "--release", "--package", "compute_average_income",  "--bin", "compute_average_income"
+}
