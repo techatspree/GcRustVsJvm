@@ -2,6 +2,7 @@ module ComputeAverageIncome
     ( computeAverageIncomeOfAllEmployees
     , createRandomStringOf80Chars
     , createRandomAddress
+    , createRandomEmployee
     ) where
 
 import System.Random
@@ -39,6 +40,20 @@ createRandomAddress = do
     , city = cityV
     , country = countryV
     }
+
+createRandomEmployee :: IO Employee
+createRandomEmployee = do
+  firstNameV <- createRandomStringOf80Chars
+  lastNameV <- createRandomStringOf80Chars
+  addressV <- createRandomAddress
+  let salaryV = 1000
+  return Employee
+    { firstName = firstNameV
+    , lastName = lastNameV
+    , address = addressV
+    , salary = salaryV
+}
+
 
 computeAverageIncomeOfAllEmployees :: IO ()
 computeAverageIncomeOfAllEmployees = putStrLn "someFunc"
