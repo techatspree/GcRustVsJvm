@@ -2,6 +2,8 @@ import Test.QuickCheck
 import Test.QuickCheck.Monadic
 import ComputeAverageIncome
 
+-- QuickCheck
+
 prop_createRandomStringOf80Chars :: Property
 prop_createRandomStringOf80Chars = monadicIO $ do
   string <- run createRandomStringOf80Chars
@@ -25,6 +27,19 @@ prop_lookupAllEmployees = monadicIO $ do
   employees <- run $ lookupAllEmployees nrOfEmployees
   assert ((length employees) == nrOfEmployees)
 
+-- Unit Tests
+
+-- TODO: change to unit tests, e.g. use Tasty
+prop_computeAverageIncome =
+  let
+   address = Address "street" "code" "city" "country"
+   empl1 = Employee "first" "last" address 20
+   empl2 = Employee "first" "last" address 30
+   empl3 = Employee "first" "last" address 40
+   average = computeAverageIncome [empl1, empl2, empl3]
+  in
+   average == 30.0
+
 main :: IO ()
 main = do
   putStrLn "Starting tests"
@@ -32,4 +47,6 @@ main = do
   quickCheck prop_createRandomAddress
   quickCheck prop_createRandomEmployee
   quickCheck prop_lookupAllEmployees
+  quickCheck prop_computeAverageIncome
+  quickCheck prop_computeAverageIncome
   putStrLn "Tests done"

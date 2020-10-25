@@ -4,6 +4,9 @@ module ComputeAverageIncome
     , createRandomAddress
     , createRandomEmployee
     , lookupAllEmployees
+    , computeAverageIncome
+    , Address( Address )
+    , Employee( Employee)
     ) where
 
 import System.Random
@@ -60,6 +63,13 @@ lookupAllEmployees :: Int -> IO [Employee]
 lookupAllEmployees numberOfAllEmployees =
   replicateM numberOfAllEmployees createRandomEmployee
 
+computeAverageIncome :: [Employee] -> Float
+computeAverageIncome employees =
+  let (nrEmployees, sumOfAllSalaries) =
+        foldl (\ (counter, sum) employee -> (counter + 1, sum + (salary employee)))
+              (0,0) employees
+  in
+    (fromIntegral sumOfAllSalaries) / (fromIntegral nrEmployees)
 
 computeAverageIncomeOfAllEmployees :: IO ()
 computeAverageIncomeOfAllEmployees = putStrLn "someFunc"

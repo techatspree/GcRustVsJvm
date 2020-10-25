@@ -33,7 +33,7 @@ class EmployeeServices {
                 .joinToString("")
 
 
-        fun computeAverageIncomeOfAllEmployees(employees : Sequence<Employee>): Double {
+        fun computeAverageIncome(employees : Sequence<Employee>): Double {
             val (nrOfEmployees, sumOfSalaries) = employees
                 .fold(Pair(0L, 0L),
                     { (counter, sum), employee ->
@@ -48,7 +48,7 @@ fun main() {
     val nrsOfEmployees = listOf(1000L, 10000L, 100000L, 1000000L)
     nrsOfEmployees.forEach { nr : Long ->
         val timeNeeded = measureTimeMillis {
-            EmployeeServices.computeAverageIncomeOfAllEmployees(lookupAllEmployees(nr))
+            EmployeeServices.computeAverageIncome(lookupAllEmployees(nr))
             Runtime.getRuntime().gc()
         }
         println("timeNeeded = $timeNeeded ms")
