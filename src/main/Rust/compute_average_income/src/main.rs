@@ -8,7 +8,6 @@ struct Address {
     city: String,
     country: String,
 }
-
 #[derive(Debug)]
 struct Employee {
     first_name: String,
@@ -16,7 +15,6 @@ struct Employee {
     address: Address,
     salary: u64,
 }
-
 
 fn create_random_string_of_80_chars(char_pool: &Vec<char>) -> String {
     return (0..80)
