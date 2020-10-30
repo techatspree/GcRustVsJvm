@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       ComputeAverageIncome
+      ComputeAverageIncomeStrict
   other-modules:
       Paths_compute_average_income
   hs-source-dirs:
