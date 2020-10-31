@@ -3,6 +3,7 @@ module ComputeAverageIncomeStrict
     ( computeAverageIncomeOfAllEmployeesStrict
     ) where
 
+import Data.Foldable
 import System.Random
 import Control.Monad
 
@@ -64,7 +65,7 @@ lookupAllEmployees numberOfAllEmployees =
 computeAverageIncome :: [Employee] -> Float
 computeAverageIncome employees =
   let (nrEmployees, sumOfAllSalaries) =
-        foldl (\ (counter, sum) employee -> (counter + 1, sum + (salary employee)))
+        foldl' (\ (counter, sum) employee -> (counter + 1, sum + (salary employee)))
               (0,0) employees
   in
     (fromIntegral sumOfAllSalaries) / (fromIntegral nrEmployees)
@@ -72,6 +73,4 @@ computeAverageIncome employees =
 computeAverageIncomeOfAllEmployeesStrict :: Int -> IO (Float)
 computeAverageIncomeOfAllEmployeesStrict numberOfAllEmployees = do
   employees <- lookupAllEmployees numberOfAllEmployees
-  --let average = computeAverageIncome employees
-  --putStrLn ("average: " ++ (show average))
   return $ computeAverageIncome employees

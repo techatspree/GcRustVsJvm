@@ -70,7 +70,7 @@ lookupAllEmployees numberOfAllEmployees =
 computeAverageIncome :: [Employee] -> Float
 computeAverageIncome employees =
   let (nrEmployees, sumOfAllSalaries) =
-        foldl (\ (counter, sum) employee -> (counter + 1, sum + (salary employee)))
+        foldr (\ employee (counter, sum)  -> (counter + 1, sum + (salary employee)))
               (0,0) employees
   in
     (fromIntegral sumOfAllSalaries) / (fromIntegral nrEmployees)
