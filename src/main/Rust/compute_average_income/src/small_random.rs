@@ -1,4 +1,4 @@
-use rand::Rng;
+use rand::{SeedableRng, thread_rng, Rng};
 use rand::rngs::SmallRng;
 use std::time::{Instant};
 
@@ -10,6 +10,7 @@ struct Address {
     city: String,
     country: String,
 }
+
 #[derive(Debug)]
 struct Employee {
     first_name: String,
@@ -19,10 +20,14 @@ struct Employee {
 }
 
 fn create_random_string_of_80_chars(char_pool: &Vec<char>) -> String {
-    let mut thread_rng = rand::thread_rng();
+    let mut thread_rng = thread_rng();
+    let mut rng = SmallRng::from_rng(&mut thread_rng).unwrap();
 
     return (0..80)
-        .map(|_| { char_pool[rand::thread_rng().gen_range(0, char_pool.len())] })
+        .map(|_| {
+            let index = rng.gen_range(0, char_pool.len());
+            char_pool[index]
+        })
         .into_iter().collect();
 }
 
