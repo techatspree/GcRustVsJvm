@@ -26,7 +26,12 @@ struct RandyRandom {
 
 impl RandyRandom {
     fn new(rng: Box<dyn RngCore>) -> RandyRandom {
-        let pool: Vec<_> = ('a'..'z').collect();
+        let pool: Vec<_> =
+            ('a'..'z')
+                .chain('A'..'Z')
+                .chain('0'..'9')
+                .collect();
+
         let dist = Uniform::from(0..pool.len());
         RandyRandom { rng, pool, dist }
     }

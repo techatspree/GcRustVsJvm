@@ -57,7 +57,11 @@ fn compute_average_income_of_all_employees(employees: impl Iterator<Item=Employe
 
 pub fn benchmark() {
     println!("Benchmarking standard random number generator");
-    let char_pool = ('a'..'z').collect::<Vec<_>>();
+    let char_pool : Vec<_> =
+        ('a'..'z')
+            .chain('A'..'Z')
+            .chain('0'..'9')
+            .collect();
 
     let nrs_of_employees = [1000u64, 10000, 100000, 1000000];
     for nr_of_employees in &nrs_of_employees {
