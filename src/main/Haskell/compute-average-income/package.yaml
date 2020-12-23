@@ -34,9 +34,20 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -O2
     dependencies:
     - compute-average-income
     - criterion
+
+  compute-average-income-profile-exe:
+    main:                Main.hs
+    source-dirs:         profile
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - compute-average-income
 
 tests:
   compute-average-income-test:

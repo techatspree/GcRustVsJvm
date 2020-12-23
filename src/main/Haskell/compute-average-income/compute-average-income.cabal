@@ -42,11 +42,24 @@ executable compute-average-income-exe
       Paths_compute_average_income
   hs-source-dirs:
       app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
   build-depends:
       base >=4.7 && <5
     , compute-average-income
     , criterion
+    , random ==1.1
+  default-language: Haskell2010
+
+executable compute-average-income-profile-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_compute_average_income
+  hs-source-dirs:
+      profile
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , compute-average-income
     , random ==1.1
   default-language: Haskell2010
 
