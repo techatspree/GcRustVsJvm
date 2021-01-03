@@ -27,10 +27,41 @@ task computeAverageIncomeKotlin(type: JavaExec) {
 
 // Stack must be installed and the executable must be in the path
 // https://docs.haskellstack.org/en/stable/README/
-task computeAverageIncomeHaskell(type: Exec) {
+
+task cleanAverageIncomeHaskell(type: Exec) {
     workingDir "./src/main/Haskell/compute-average-income"
-    commandLine "stack", "run"
+    commandLine "stack", "clean"
 }
+
+task buildForProfileAverageIncomeHaskell(type: Exec) {
+    workingDir "./src/main/Haskell/compute-average-income"
+    commandLine "stack", "build" , "--profile"
+}
+task buildAverageIncomeHaskell(type: Exec) {
+    workingDir "./src/main/Haskell/compute-average-income"
+    commandLine "stack", "build"
+}
+
+task computeAverageIncomeHaskell(type: Exec) {
+    dependsOn(cleanAverageIncomeHaskell)
+    dependsOn(buildAverageIncomeHaskell)
+    buildAverageIncomeHaskell.mustRunAfter(cleanAverageIncomeHaskell)
+
+    workingDir "./src/main/Haskell/compute-average-income"
+    commandLine "stack", "exec", "compute-average-income-exe" , "+RTS" , "-N6"
+}
+
+task profileAverageIncomeHaskell(type: Exec) {
+    dependsOn(cleanAverageIncomeHaskell)
+    dependsOn(buildForProfileAverageIncomeHaskell)
+    buildForProfileAverageIncomeHaskell.mustRunAfter(cleanAverageIncomeHaskell)
+
+    workingDir "./src/main/Haskell/compute-average-income"
+    commandLine "stack", "exec" , "--profile", "--", "compute-average-income-profile-exe", "+RTS" , "-s" // simple statistics
+    //commandLine "stack", "exec" , "--profile", "--", "compute-average-income-profile-exe", "+RTS" , "-P", "-S" // extensive profile
+    //commandLine "stack", "exec" , "--profile", "--", "compute-average-income-exe", "+RTS" , "-P", "-s"
+}
+
 
 // Rust must be installed using rustup
 // https://www.rust-lang.org

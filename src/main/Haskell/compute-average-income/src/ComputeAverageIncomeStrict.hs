@@ -12,14 +12,14 @@ data Address = Address
   , postalCode:: String
   , city:: String
   , country:: String
-  } deriving (Eq)
+  } deriving (Eq, Show)
 
 data Employee = Employee
   { firstName:: String
   , lastName:: String
   , address:: Address
   , salary:: Int
-  } deriving (Eq)
+  } deriving (Eq, Show)
 
 chars = ['a'..'z'] ++ ['A'..'Z'] ++ ['0'..'9']
 nrOfChars = length chars
@@ -27,10 +27,10 @@ nrOfChars = length chars
 createRandomStringOf80Chars :: IO String
 createRandomStringOf80Chars = do
   random <- newStdGen
-  return $
+  return $!
     take 80
-      $ map (\i -> chars !! i)
-      $ randomRs ( 0,nrOfChars -1) random
+      $! map (\i -> chars !! i)
+      $! randomRs ( 0,nrOfChars -1) random
 
 createRandomAddress :: IO Address
 createRandomAddress = do

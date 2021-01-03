@@ -17,14 +17,14 @@ data Address = Address
   , postalCode:: String
   , city:: String
   , country:: String
-  } deriving (Eq)
+  } deriving (Eq, Show)
 
 data Employee = Employee
   { firstName:: String
   , lastName:: String
   , address:: Address
   , salary:: Int
-  } deriving (Eq)
+  } deriving (Eq, Show)
 
 chars = ['a'..'z'] ++ ['A'..'Z'] ++ ['0'..'9']
 nrOfChars = length chars
