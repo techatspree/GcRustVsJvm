@@ -1,63 +1,63 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+
+
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21'
 }
 
-group 'de.akquinet'
-version '1.0-SNAPSHOT'
+group = 'de.akquinet'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-task computeAverageIncomeKotlin(type: JavaExec) {
+tasks.register('computeAverageIncomeKotlin', JavaExec) {
     classpath sourceSets.main.runtimeClasspath
-    main = "ComputeAverageIncomeKt"
+    mainClass = "ComputeAverageIncomeKt"
 }
 
 // Stack must be installed and the executable must be in the path
 // https://docs.haskellstack.org/en/stable/README/
 
-task cleanAverageIncomeHaskell(type: Exec) {
+tasks.register('cleanAverageIncomeHaskell', Exec) {
     workingDir "./src/main/Haskell/compute-average-income"
     commandLine "stack", "clean"
 }
 
-task buildForProfileAverageIncomeHaskell(type: Exec) {
+tasks.register('buildForProfileAverageIncomeHaskell', Exec) {
     workingDir "./src/main/Haskell/compute-average-income"
-    commandLine "stack", "build" , "--profile"
+    commandLine "stack", "build", "--profile"
 }
-task buildAverageIncomeHaskell(type: Exec) {
+tasks.register('buildAverageIncomeHaskell', Exec) {
     workingDir "./src/main/Haskell/compute-average-income"
     commandLine "stack", "build"
 }
 
-task computeAverageIncomeHaskell(type: Exec) {
+tasks.register('computeAverageIncomeHaskell', Exec) {
     dependsOn(cleanAverageIncomeHaskell)
     dependsOn(buildAverageIncomeHaskell)
     buildAverageIncomeHaskell.mustRunAfter(cleanAverageIncomeHaskell)
 
     workingDir "./src/main/Haskell/compute-average-income"
-    commandLine "stack", "exec", "compute-average-income-exe" , "+RTS" , "-N6"
+    commandLine "stack", "exec", "compute-average-income-exe", "+RTS", "-N6"
 }
 
-task profileAverageIncomeHaskell(type: Exec) {
+tasks.register('profileAverageIncomeHaskell', Exec) {
     dependsOn(cleanAverageIncomeHaskell)
     dependsOn(buildForProfileAverageIncomeHaskell)
     buildForProfileAverageIncomeHaskell.mustRunAfter(cleanAverageIncomeHaskell)
 
     workingDir "./src/main/Haskell/compute-average-income"
-    commandLine "stack", "exec" , "--profile", "--", "compute-average-income-profile-exe", "+RTS" , "-s" // simple statistics
+    commandLine "stack", "exec", "--profile", "--", "compute-average-income-profile-exe", "+RTS", "-s"
+    // simple statistics
     //commandLine "stack", "exec" , "--profile", "--", "compute-average-income-profile-exe", "+RTS" , "-P", "-S" // extensive profile
     //commandLine "stack", "exec" , "--profile", "--", "compute-average-income-exe", "+RTS" , "-P", "-s"
 }
@@ -65,12 +65,12 @@ task profileAverageIncomeHaskell(type: Exec) {
 
 // Rust must be installed using rustup
 // https://www.rust-lang.org
-    task computeAverageIncomeRust(type: Exec) {
+tasks.register('computeAverageIncomeRust', Exec) {
     workingDir "./src/main/Rust/compute_average_income"
-    commandLine "cargo", "run", "--release", "--package", "compute_average_income",  "--bin", "compute_average_income"
+    commandLine "cargo", "run", "--release", "--package", "compute_average_income", "--bin", "compute_average_income"
 }
 
-task computeAverageIncome {
+tasks.register('computeAverageIncome') {
     dependsOn "computeAverageIncomeRust"
     dependsOn "computeAverageIncomeHaskell"
     dependsOn "computeAverageIncomeKotlin"
