@@ -34,6 +34,7 @@ library
   build-depends:
       base >=4.7 && <5
     , random >=1.1
+    , vector
   default-language: Haskell2010
 
 executable compute-average-income-exe
@@ -48,6 +49,7 @@ executable compute-average-income-exe
     , compute-average-income
     , criterion
     , random >=1.1
+    , vector
   default-language: Haskell2010
 
 executable compute-average-income-profile-exe
@@ -62,6 +64,7 @@ executable compute-average-income-profile-exe
     , compute-average-income
     , criterion
     , random >=1.1
+    , vector
   default-language: Haskell2010
 
 test-suite compute-average-income-test
@@ -77,4 +80,5 @@ test-suite compute-average-income-test
     , base >=4.7 && <5
     , compute-average-income
     , random >=1.1
+    , vector
   default-language: Haskell2010

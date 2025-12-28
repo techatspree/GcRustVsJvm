@@ -11,6 +11,7 @@ module ComputeAverageIncome
 
 import System.Random
 import Control.Monad
+import qualified Data.Vector as V
 
 data Address = Address
   { street:: String
@@ -26,16 +27,18 @@ data Employee = Employee
   , salary:: Int
   } deriving (Eq, Show)
 
-chars = ['a'..'z'] ++ ['A'..'Z'] ++ ['0'..'9']
-nrOfChars = length chars
+chars :: V.Vector Char
+chars = V.fromList $ ['a'..'z'] ++ ['A'..'Z'] ++ ['0'..'9']
+nrOfChars :: Int
+nrOfChars = V.length chars
 
 createRandomStringOf80Chars :: IO String
 createRandomStringOf80Chars = do
   random <- newStdGen
   return $
     take 80
-      $ map (\i -> chars !! i)
-      $ randomRs ( 0,nrOfChars -1) random
+      $ map (chars V.!)
+      $ randomRs (0, nrOfChars - 1) random
 
 createRandomAddress :: IO Address
 createRandomAddress = do
