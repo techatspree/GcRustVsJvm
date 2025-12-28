@@ -16,6 +16,7 @@ Use this skill when the user wants to run performance benchmarks, compare langua
 
    Or run individual language benchmarks:
    - Kotlin: `./gradlew computeAverageIncomeKotlin`
+   - GraalVM: `./gradlew computeAverageIncomeGraalVM` (requires GRAALVM_HOME)
    - Rust: `./gradlew computeAverageIncomeRust`
    - Haskell: `./gradlew computeAverageIncomeHaskell`
 
@@ -26,5 +27,6 @@ Use this skill when the user wants to run performance benchmarks, compare langua
 
 ## Notes
 - Gradle 9.2.1 uses JDK 21 toolchain (auto-provisioned via foojay)
+- GraalVM benchmark requires GRAALVM_HOME environment variable set
 - Haskell uses GHC 9.10.3 (LTS-24.25)
 - Rust uses cargo with --release flag

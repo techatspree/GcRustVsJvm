@@ -24,6 +24,22 @@ tasks.register('computeAverageIncomeKotlin', JavaExec) {
     mainClass = "ComputeAverageIncomeKt"
 }
 
+// GraalVM must be installed and GRAALVM_HOME must be set
+// https://www.graalvm.org
+tasks.register('computeAverageIncomeGraalVM', JavaExec) {
+    classpath sourceSets.main.runtimeClasspath
+    mainClass = "ComputeAverageIncomeKt"
+
+    def graalvmHome = System.getenv('GRAALVM_HOME')
+    if (graalvmHome) {
+        executable = "${graalvmHome}/bin/java"
+    } else {
+        doFirst {
+            throw new GradleException("GRAALVM_HOME environment variable is not set. Please set it to your GraalVM installation directory.")
+        }
+    }
+}
+
 // Stack must be installed and the executable must be in the path
 // https://docs.haskellstack.org/en/stable/README/
 
@@ -74,4 +90,5 @@ tasks.register('computeAverageIncome') {
     dependsOn "computeAverageIncomeRust"
     dependsOn "computeAverageIncomeHaskell"
     dependsOn "computeAverageIncomeKotlin"
+    dependsOn "computeAverageIncomeGraalVM"
 }

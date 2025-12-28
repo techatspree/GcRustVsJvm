@@ -5,6 +5,12 @@ This code contains examples used in these blog articles:
 * [Kotlin/JVM, Rust and Randy Random](https://blog.akquinet.de/2020/11/22/kotlin-jvm-rust-and-randy-random/)  
 * [Haskell is faster than Rust! Wait a Sec!](https://blog.akquinet.de/2021/01/03/haskell-is-faster-than-rust-wait-a-sec/)
 
+# Overall Requirements.
+
+Java in Version 23 specified by JAVA_HOME. (Version 25 is not supported Gradle.)
+
+An installed GraalVM specified by GRAALVM_HOME.
+
 # Kotlin
 The Kotlin example is built and run using Gradle.
 
@@ -34,6 +40,10 @@ You need an installation of [Stack](https://www.haskellstack.org).
 To build and run the Haskell benchmark:
 
     ./gradlew computeAverageIncomeHaskell
+
+# GraalVM
+
+    ./gradlew computeAverageIncomeGraalVM
 
 # Run all benchmarks
 
