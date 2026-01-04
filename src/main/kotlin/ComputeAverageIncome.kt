@@ -18,7 +18,7 @@ data class Employee(
 class EmployeeServices {
 
     companion object {
-        private val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        private val charPool: CharArray = (('a'..'z') + ('A'..'Z') + ('0'..'9')).toCharArray()
 
         fun lookupAllEmployees(numberOfAllEmployees: Long): Sequence<Employee> {
             return (1L..numberOfAllEmployees)
