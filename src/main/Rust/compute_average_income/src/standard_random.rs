@@ -18,7 +18,7 @@ struct Employee {
 
 fn create_random_string_of_80_chars(char_pool: &Vec<char>) -> String {
     return (0..80)
-        .map(|_| { char_pool[rand::thread_rng().gen_range(0, char_pool.len())] })
+        .map(|_| { char_pool[rand::thread_rng().gen_range(0..char_pool.len())] })
         .into_iter().collect();
 }
 

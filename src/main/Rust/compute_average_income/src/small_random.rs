@@ -25,7 +25,7 @@ fn create_random_string_of_80_chars(char_pool: &Vec<char>) -> String {
 
     return (0..80)
         .map(|_| {
-            let index = rng.gen_range(0, char_pool.len());
+            let index = rng.gen_range(0..char_pool.len());
             char_pool[index]
         })
         .into_iter().collect();
