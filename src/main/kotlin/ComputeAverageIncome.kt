@@ -39,10 +39,9 @@ class EmployeeServices {
                 )
 
         private fun createRandomStringOf80Chars() =
-                (1..80)
-                        .map { nextInt(0, charPool.size) }
-                        .map(charPool::get)
-                        .joinToString("")
+                buildString(80) {
+                    repeat(80) { append(charPool[nextInt(0, charPool.size)]) }
+                }
 
 
         fun computeAverageIncome(employees: Sequence<Employee>): Double {
