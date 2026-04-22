@@ -7,9 +7,14 @@ This code contains examples used in these blog articles:
 
 # Overall Requirements.
 
-Java in Version 23 specified by JAVA_HOME. (Version 25 is not supported Gradle.)
+Java
+* Java in Version 21 specified by JAVA_HOME. (Version 25 is not supported Gradle.)
+* An installed GraalVM specified by GRAALVM_HOME.
 
-An installed GraalVM specified by GRAALVM_HOME.
+Rust
+
+Haskell
+
 
 # Kotlin
 The Kotlin example is built and run using Gradle.
