@@ -1,32 +1,33 @@
+---
+name: run-benchmarks
+description: "Run GC and memory allocation benchmarks comparing Kotlin/JVM, Rust, GraalVM, and Haskell compute-average-income implementations via Gradle. Use when running performance benchmarks, comparing language execution times, profiling Haskell memory usage, or testing compute-average-income implementations across dataset sizes (1K to 1M employees)."
+---
+
 # run-benchmarks
 
-Use this skill when the user wants to run performance benchmarks, compare languages, or test the compute-average-income implementations.
+## Workflow
 
-## Instructions
-
-1. Set JAVA_HOME to Java 23 for Gradle compatibility:
+1. **Set JAVA_HOME** to a Java 23+ installation for Gradle compatibility:
    ```bash
-   export JAVA_HOME=/Users/tnfink/Library/Java/JavaVirtualMachines/openjdk-23.0.1/Contents/Home
+   export JAVA_HOME=$(/usr/libexec/java_home -v 23 2>/dev/null || echo "$JAVA_HOME")
    ```
 
-2. Run all benchmarks with:
-   ```bash
-   ./gradlew computeAverageIncome
-   ```
+2. **Run benchmarks** using Gradle as the orchestrator:
 
-   Or run individual language benchmarks:
-   - Kotlin: `./gradlew computeAverageIncomeKotlin`
-   - GraalVM: `./gradlew computeAverageIncomeGraalVM` (requires GRAALVM_HOME)
-   - Rust: `./gradlew computeAverageIncomeRust`
-   - Haskell: `./gradlew computeAverageIncomeHaskell`
+   - All languages: `./gradlew computeAverageIncome`
+   - Kotlin/JVM only: `./gradlew computeAverageIncomeKotlin`
+   - Rust only: `./gradlew computeAverageIncomeRust`
+   - Haskell only: `./gradlew computeAverageIncomeHaskell`
+   - GraalVM only: `./gradlew computeAverageIncomeGraalVM` (requires `GRAALVM_HOME`)
 
-3. For Haskell profiling:
+3. **Profile Haskell** memory and GC behavior:
    ```bash
    ./gradlew profileAverageIncomeHaskell
    ```
 
-## Notes
-- Gradle 9.2.1 uses JDK 21 toolchain (auto-provisioned via foojay)
-- GraalVM benchmark requires GRAALVM_HOME environment variable set
-- Haskell uses GHC 9.10.3 (LTS-24.25)
-- Rust uses cargo with --release flag
+## Environment Requirements
+
+- **Gradle 9.2.1**: Uses JDK 21 toolchain, auto-provisioned via foojay
+- **GraalVM**: Set `GRAALVM_HOME` environment variable before running GraalVM benchmarks
+- **Haskell**: GHC 9.10.3 (LTS-24.25) via Stack
+- **Rust**: Compiled with `cargo --release`
